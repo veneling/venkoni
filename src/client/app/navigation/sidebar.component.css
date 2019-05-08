@@ -1,0 +1,27 @@
+.example-header {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.example-container {
+  position: absolute;
+  top: 64px;
+  bottom: 0rem;
+  left: 0;
+  right: 0;
+}
+
+@media (max-width:599px) {
+  .example-container {
+    height: 56px
+  }
+}
+
+.example-sidenav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

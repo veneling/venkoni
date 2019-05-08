@@ -1,0 +1,16 @@
+<mat-toolbar class="example-header">
+  <span>Welcome</span>
+</mat-toolbar>
+<mat-sidenav-container class="example-container">
+  <mat-sidenav disableClose opened mode="side" [fixedInViewport]="false" class="example-sidenav">
+    <mat-list role="list">
+        <mat-list-item><a routerLink='about'>About me</a></mat-list-item>
+        <mat-list-item><a routerLink='cv'>Curriculum vitae</a></mat-list-item>
+        <mat-list-item><a routerLink='projects'>Projects</a></mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
