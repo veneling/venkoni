@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainModule } from './cvbuilder/main.module';
+import { MaterialModule } from './loaders/material.module';
+
 import { AboutComponent } from './navigation/about/about.component';
 import { CvComponent } from './navigation/cv/cv.component';
 import { ProjectsComponent } from './navigation/projects/projects.component';
 import { SidebarComponent } from './navigation/sidebar.component';
-import { MaterialModule } from './loaders/material.module';
 
 const routes: Routes = [
   { path: '', component: SidebarComponent,
@@ -14,7 +15,8 @@ const routes: Routes = [
       { path: 'cv', component: CvComponent },
       { path: 'projects' , component: ProjectsComponent }
     ]},
-  { path: 'cvbuilder', loadChildren: () => MainModule }
+  { path: 'cvbuilder', loadChildren: () => MainModule },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
@@ -23,6 +25,10 @@ const routes: Routes = [
     MaterialModule],
   exports: [
     RouterModule
+  ],
+  declarations: [ 
+    SidebarComponent, 
+    AboutComponent, CvComponent, ProjectsComponent 
   ]
 })
 export class AppRoutingModule { }
