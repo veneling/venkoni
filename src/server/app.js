@@ -3,17 +3,31 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
+const expressJwt = require('express-jwt');
 
 var app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static('C:/Users/USER/Documents/Programming/venkoni/dist/venkoni'));
 
 app.get('/', function(req, res) {
   res.sendFile('C:/Users/USER/Documents/Programming/venkoni/dist/venkoni/index.html')
+});
+
+app.post('/api/auth', function(req, res) {
+  const body = req.body;
+
+  const user = USERS.find(user => user.username == body.username);
+  if(!user || body.password != 'todo') return res.sendStatus(401);
+  
+  var token = jwt.sign({userID: user.id}, 'alabala', {expiresIn: '2h'});
+  res.send({token});
 });
 
 // catch 404 and forward to error handler

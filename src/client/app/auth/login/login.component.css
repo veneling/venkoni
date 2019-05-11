@@ -1,0 +1,25 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form > * {
+  width: 20%;
+  margin: auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.center {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+}
+
+.margin-top {
+  margin-top: 1rem;
+}
