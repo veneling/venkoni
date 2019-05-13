@@ -7,13 +7,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
+
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +30,7 @@ export function tokenGetter() {
     })
   ],
   providers: [HttpClient, HttpClientModule],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [ ]
 })
 export class AppModule { }

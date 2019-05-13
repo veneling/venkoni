@@ -6,7 +6,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate, Router } from
   providedIn: 'root'
 })
 
-export class AuthGuard implements CanActivate {
+export class AuthcactGuard implements CanActivate {
   path: ActivatedRouteSnapshot[];
   route: ActivatedRouteSnapshot;
   constructor(private router: Router) { }

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common'; 
 import { Routes, RouterModule } from '@angular/router';
 import { MainModule } from './cvbuilder/main.module';
 import { MaterialModule } from './loaders/material.module';
@@ -9,9 +10,10 @@ import { ProjectsComponent } from './navigation/projects/projects.component';
 import { SidebarComponent } from './navigation/sidebar.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AuthGuard } from './auth/auth.guard';
+import { AuthcactGuard } from './auth/authcact.guard';
 import { AuthService } from './auth/auth.service';
 import { AuthcloadGuard } from './auth/authcload.guard';
+import { RegisterComponent } from './auth/register/register.component';
 
 const routes: Routes = [
   { path: '', component: SidebarComponent,
@@ -22,12 +24,14 @@ const routes: Routes = [
     ]},
   { path: 'cvbuilder', loadChildren: () => MainModule, canLoad: [AuthcloadGuard] },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes), 
+    RouterModule.forRoot(routes),
+    CommonModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
@@ -38,12 +42,12 @@ const routes: Routes = [
   ],
   declarations: [ 
     SidebarComponent, 
-    AboutComponent, CvComponent, ProjectsComponent, LoginComponent
+    AboutComponent, CvComponent, ProjectsComponent, LoginComponent, RegisterComponent
   ],
   providers:
   [
     AuthService,
-    AuthGuard,
+    AuthcactGuard,
     AuthcloadGuard
   ]
 })

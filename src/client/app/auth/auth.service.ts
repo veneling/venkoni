@@ -11,6 +11,10 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  register(email, password, repeatPassword) {
+
+  }
+
   login(username: string, password: string): Observable<boolean> {
     return this.http.post<{token: string}>('/api/auth', {username: username, password: password})
     .pipe(

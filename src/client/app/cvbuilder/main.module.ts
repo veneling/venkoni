@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
-import { AuthGuard } from '../auth/auth.guard';
-
+import { AuthcactGuard } from '../auth/authcact.guard';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -23,7 +22,7 @@ const routes: Routes = [
   ],
   providers: [
     AuthService,
-    AuthGuard
+    AuthcactGuard
   ]
 })
 export class MainModule { }

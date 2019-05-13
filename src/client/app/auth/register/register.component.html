@@ -1,0 +1,27 @@
+<div class="text-center">
+  <div class="center">
+    <p class="mat-h1">User Registration Form</p>
+    <form [formGroup]="registrationForm" novalidate>
+      <mat-form-field hideRequiredMarker>
+        <input matInput formControlName="email" placeholder="Email" type="email" required>
+      </mat-form-field>
+      <br>
+      <mat-form-field hideRequiredMarker>
+        <input matInput placeholder="Password" type="password" formControlName="password" required>
+      </mat-form-field>
+      <br>
+      <mat-form-field hideRequiredMarker>
+        <input matInput placeholder="Repeat password" type="password" formControlName="repeatPassword" required>
+      </mat-form-field>
+      <br>
+      <p class="mat-body" *ngIf="registrationForm.hasError('passwordsDoNotMatch')">
+        Passwords do not match
+      </p>
+
+      <button mat-stroked-button (click)="register()" [disabled]="registrationForm.errors?.passwordsDoNotMatch || !registrationForm.valid">Register</button>
+    </form>
+    <p class="mat-body">Already have an account? Click <a routerLink="/login">here</a> to login.</p>
+    <p>{{registrationForm.errors?.passwordsMatchValidator}}</p>
+    <p class="mat-body"><a routerLink="/">Back to home </a></p>
+  </div>
+</div>
