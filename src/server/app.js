@@ -1,119 +1,35 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+require('rootpath')();
+const express = require('express');
+const app = express();
+const cors = require('cors');
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
-const expressJwt = require('express-jwt');
+const jwt = require('_helpers/jwt');
+const errorHandler = require('_helpers/error-handler');
+const path = require('path')
 
-var app = express();
+const clientPath = path.normalize(path.join(__dirname, '/../../'))
 
-app.use(logger('dev'));
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static('C:/Users/USER/Documents/Programming/venkoni/dist/venkoni'));
+app.use(cors());
+
+// use JWT auth to secure the api
+app.use(jwt());
 
 app.get('/', function(req, res) {
-  res.sendFile('C:/Users/USER/Documents/Programming/venkoni/dist/venkoni/index.html')
+  console.log(clientPath)
+  res.sendFile(clientPath + '/dist/venkoni/index.html')
 });
 
-app.post('/api/auth', function(req, res) {
-  const body = req.body;
+// api routes
+app.use('/users', require('./users/users.controller'));
+app.use(express.static(clientPath + '/dist/venkoni'));
 
-  const user = USERS.find(user => user.username == body.username);
-  if(!user || body.password != 'todo') return res.sendStatus(401);
-  
-  var token = jwt.sign({userID: user.id}, 'alabala', {expiresIn: '2h'});
-  res.send({token});
+// global error handler
+app.use(errorHandler);
+
+// start server
+const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 4000;
+const server = app.listen(port, function () {
+    console.log('Server listening on port ' + port);
 });
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-var debug = require('debug')('server:server');
-var http = require('http');
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
-var server = http.createServer(app);
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
-
-/**
- * Event listener for HTTP server "error" event.
- */
-
-function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
-
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
-
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-}
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-    console.log('Server listening on port ' + addr.port);
-  debug('Listening on ' + bind);
-}
-
