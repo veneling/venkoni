@@ -6,12 +6,15 @@ module.exports = jwt;
 
 function jwt() {
     const secret = config.secret;
-    return expressJwt({ secret, isRevoked }).unless({
+    return expressJwt({ secret, isRevoked })
+    .unless({
         path: [
             // public routes that don't require authentication
             '/users/authenticate',
             '/users/register',
-            '/'
+            '/',
+            clientPath + '/dist/venkoni/index.html',
+            clientPath + '/dist/venkoni'
         ]
     });
 }

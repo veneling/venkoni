@@ -1,20 +1,14 @@
-var createError = require('http-errors');
-let controllers = require('../controllers/_index')
-let auth = require('../config/auth')
+const express = require('express')
+const mainRouter = express.Router()
+const homeController = require('../home/home.controller')
+const usersController = require('../users/users.controller')
 
-module.exports = (app) => {
-  app.get('/', auth.protectedRoute(), controllers.home.index)
-  // app.get('/users/register', controllers.users.register)
-  app.post('/users/register', controllers.users.createUser)
-  app.get('/users/logout', controllers.users.logout)
-  app.get('/users/login', controllers.users.login)
-  app.post('/users/login', controllers.users.authenticate)
-  app.get('/users/isLogged', controllers.users.isLogged)
+module.exports = (config, app) => {
 
-  // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+  mainRouter.use('/', homeController)
+  mainRouter.use('/users', usersController)
+
+  app.use('/', mainRouter)
 
   app.all('*', (req, res) => {
     res.status(404)

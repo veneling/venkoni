@@ -1,35 +1,16 @@
-require('rootpath')();
+require('dotenv').config()
+
 const express = require('express');
 const app = express();
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const jwt = require('_helpers/jwt');
-const errorHandler = require('_helpers/error-handler');
-const path = require('path')
 
-const clientPath = path.normalize(path.join(__dirname, '/../../'))
+let env = process.env.NODE_ENV || 'development'
+let config = require('./config/config')[env]
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(cors());
-
-// use JWT auth to secure the api
-app.use(jwt());
-
-app.get('/', function(req, res) {
-  console.log(clientPath)
-  res.sendFile(clientPath + '/dist/venkoni/index.html')
-});
-
-// api routes
-app.use('/users', require('./users/users.controller'));
-app.use(express.static(clientPath + '/dist/venkoni'));
-
-// global error handler
-app.use(errorHandler);
+require('./config/database')(config)
+require('./config/express')(config, app)
+require('./config/routes')(config, app)
 
 // start server
-const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 4000;
-const server = app.listen(port, function () {
-    console.log('Server listening on port ' + port);
+const server = app.listen(config.port, function () {
+    console.log('Server listening on port ' + config.port);
 });

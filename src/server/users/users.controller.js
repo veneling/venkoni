@@ -1,9 +1,14 @@
-﻿const express = require('express');
+﻿const expressJwt = require('express-jwt');
+const express = require('express');
 const router = express.Router();
 const userService = require('./user.service');
+const path = require('path');
+
+const jwtSecret = expressJwt({secret: process.env.JWT_SECRET})
 
 // routes
-router.post('/authenticate', authenticate);
+router.get('/test', test)
+router.post('/auth', auth);
 router.post('/register', register);
 router.get('/', getAll);
 router.get('/current', getCurrent);
@@ -13,8 +18,12 @@ router.delete('/:id', _delete);
 
 module.exports = router;
 
-function authenticate(req, res, next) {
-    userService.authenticate(req.body)
+function test(req, res, next) {
+    res.send('test successful')
+}
+
+function auth(req, res, next) {
+    userService.auth(req.body)
         .then(user => user ? res.json(user) : res.status(400).json({ message: 'Username or password is incorrect' }))
         .catch(err => next(err));
 }
