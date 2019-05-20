@@ -12,7 +12,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent {
   
   loginForm = this.fb.group({
-    username: [ '', Validators.required ],
+    email: [ '', Validators.required ],
     password: [ '', Validators.required ]
   });
   public error: string;
@@ -23,12 +23,12 @@ export class LoginComponent {
     return this.loginForm.get('password').value;
   }
 
-  get username() {
-    return this.loginForm.get('username').value;
+  get email() {
+    return this.loginForm.get('email').value;
   }
 
   public submit() {
-    this.auth.login(this.username, this.password)
+    this.auth.login(this.email, this.password)
       .pipe(first())
       .subscribe(
         result => this.router.navigate(['']),

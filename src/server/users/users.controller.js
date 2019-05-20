@@ -1,36 +1,34 @@
 ﻿const expressJwt = require('express-jwt');
 const express = require('express');
 const router = express.Router();
+const env = process.env.NODE_ENV || 'development'
+const config = require('../config/config')[env]
 const userService = require('./user.service');
 const path = require('path');
 
 const jwtSecret = expressJwt({secret: process.env.JWT_SECRET})
 
 // routes
-router.get('/test', test)
-router.post('/auth', auth);
-router.post('/register', register);
-router.get('/', getAll);
-router.get('/current', getCurrent);
-router.get('/:id', getById);
-router.put('/:id', update);
-router.delete('/:id', _delete);
+router.post('/login', login)
+router.post('/register', register)
+router.get('/', getAll)
+router.get('/current', getCurrent)
+router.get('/:id', getById)
+router.put('/:id', jwtSecret, update)
+router.delete('/:id', jwtSecret, _delete)
 
 module.exports = router;
-
-function test(req, res, next) {
-    res.send('test successful')
-}
-
-function auth(req, res, next) {
-    userService.auth(req.body)
-        .then(user => user ? res.json(user) : res.status(400).json({ message: 'Username or password is incorrect' }))
-        .catch(err => next(err));
-}
 
 function register(req, res, next) {
     userService.create(req.body)
         .then(() => res.json({}))
+        .catch(err => next(err));
+}
+
+function login(req, res, next) {
+    console.log(req.body)
+    userService.login({email: req.body.email, password: req.body.password})
+        .then(user => user ? res.json(user) : res.status(400).json({ message: 'Email or password is incorrect' }))
         .catch(err => next(err));
 }
 

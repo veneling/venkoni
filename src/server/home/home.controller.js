@@ -8,4 +8,24 @@ router.get('/', function(req, res) {
   res.sendFile(path.join(config.rootPath, '/index.html'));
 })
 
+router.get('/about', function(req, res) {
+  res.sendFile(path.join(config.rootPath, '/index.html'));
+})
+
+router.get('/cv', function(req, res) {
+  res.sendFile(path.join(config.rootPath, '/index.html'));
+})
+
+router.get('/projects', function(req, res) {
+  res.sendFile(path.join(config.rootPath, '/index.html'));
+})
+
+router.get('/register', function(req, res) {
+  res.sendFile(path.join(config.rootPath, '/index.html'));
+})
+
+router.get('/login', function(req, res) {
+  res.sendFile(path.join(config.rootPath, '/index.html'));
+})
+
 module.exports = router

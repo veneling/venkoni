@@ -3,6 +3,7 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { passwordsMatchValidator } from './passwordsValidator.directive';
 import { AuthService } from '../auth.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,10 @@ export class RegisterComponent implements OnInit {
     email:       [ '', Validators.required ],
     password:       [ '', Validators.required ],
     repeatPassword: [ '', Validators.required ]
-  }, { validator: passwordsMatchValidator });
+  }, 
+  { 
+    validator: passwordsMatchValidator 
+  });
 
   ngOnInit() { }
 
@@ -34,7 +38,19 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.authService.register(this.email.value, this.password.value, this.repeatPassword.value);
+    console.log(this.registrationForm.value);
+    this.authService.register(this.registrationForm.value)
+    .pipe(first())
+    .subscribe(
+      data => {
+        //save the jwt token, log the user and redirect to the CV dashboard
+        console.log('user created as ' + JSON.stringify(data));
+        this.router.navigate(['login'])
+      },
+      error => {
+        // display the error message and reload the register page
+        console.log('error' + JSON.stringify(error));
+      });
       
   }
 }
