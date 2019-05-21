@@ -1,8 +1,20 @@
 home
   |--about
-        |--contact
+        |--contact (pop-up form)
   |--curriculum vitae
   |--projects
         |--cvproject
-                |--login
-                |--register
+              |--register
+              |--login as user              
+                    |--dashboard
+                          |--create cv
+                          |--edit cv
+                          |--delete cv
+                          |--export cv
+              |--login as admin
+                    |--dashboard
+                          |--create template
+                          |--create cv
+                          |--edit cv
+                          |--delete cv
+                          |--export cv
