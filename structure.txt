@@ -1,0 +1,8 @@
+home
+  |--about
+        |--contact
+  |--curriculum vitae
+  |--projects
+        |--cvproject
+                |--login
+                |--register

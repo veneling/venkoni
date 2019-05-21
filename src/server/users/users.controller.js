@@ -26,7 +26,6 @@ function register(req, res, next) {
 }
 
 function login(req, res, next) {
-    console.log(req.body)
     userService.login({email: req.body.email, password: req.body.password})
         .then(user => user ? res.json(user) : res.status(400).json({ message: 'Email or password is incorrect' }))
         .catch(err => next(err));
