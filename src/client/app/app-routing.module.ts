@@ -31,7 +31,6 @@ const routes: Routes = [
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
   ],
   exports: [
     RouterModule

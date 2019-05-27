@@ -6,12 +6,14 @@ import { AuthService } from '../auth/auth.service';
 import { AuthcactGuard } from '../auth/authcact.guard';
 import { LoginComponent } from '../auth/login/login.component';
 import { RegisterComponent } from '../auth/register/register.component';
+import { MaterialModule } from '../loaders/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'cvproject' }
 ]
 
 @NgModule({
@@ -23,6 +25,9 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     CommonModule,
