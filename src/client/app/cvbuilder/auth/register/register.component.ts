@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
       data => {
         //save the jwt token, log the user and redirect to the CV dashboard
         console.log('user created as ' + JSON.stringify(data));
-        this.router.navigate(['login'])
+        this.router.navigate(['cvbuilder/dashboard'])
       },
       error => {
         // display the error message and reload the register page
