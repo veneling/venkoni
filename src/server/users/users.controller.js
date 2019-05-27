@@ -11,9 +11,9 @@ const jwtSecret = expressJwt({secret: process.env.JWT_SECRET})
 // routes
 router.post('/login', login)
 router.post('/register', register)
-router.get('/', getAll)
-router.get('/current', getCurrent)
-router.get('/:id', getById)
+router.get('/', jwtSecret, getAll)
+router.get('/current', jwtSecret, getCurrent)
+router.get('/:id', jwtSecret, getById)
 router.put('/:id', jwtSecret, update)
 router.delete('/:id', jwtSecret, _delete)
 

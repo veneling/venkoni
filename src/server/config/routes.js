@@ -1,18 +1,15 @@
 const express = require('express')
 const mainRouter = express.Router()
-const homeController = require('../home/home.controller')
 const usersController = require('../users/users.controller')
+const env = process.env.NODE_ENV || 'development'
+const config = require('../config/config')[env]
+const path = require('path')
 
 module.exports = (config, app) => {
 
-  mainRouter.use('/', homeController)
   mainRouter.use('/users', usersController)
 
-  app.use('/', mainRouter)
-
-  app.all('*', (req, res) => {
-    res.status(404)
-    res.send('404 Not Found')
-    res.end()
+  app.all('*', function(req, res) {
+    res.sendFile(path.join(config.rootPath, '/index.html'));
   })
 }
