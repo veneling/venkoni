@@ -9,9 +9,9 @@ import { CvComponent } from './navigation/cv/cv.component';
 import { ProjectsComponent } from './navigation/projects/projects.component';
 import { SidebarComponent } from './navigation/sidebar.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AuthcactGuard } from './auth/authcact.guard';
-import { AuthService } from './auth/auth.service';
-import { AuthcloadGuard } from './auth/authcload.guard';
+import { AuthcactGuard } from './cvbuilder/auth/authcact.guard';
+import { AuthService } from './cvbuilder/auth/auth.service';
+import { AuthcloadGuard } from './cvbuilder/auth/authcload.guard';
 
 const routes: Routes = [
   { path: '', component: SidebarComponent,
