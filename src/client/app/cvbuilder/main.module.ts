@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: '**', redirectTo: 'cvproject' }
+  { path: '**', redirectTo: 'cvbuilder' }
 ]
 
 @NgModule({

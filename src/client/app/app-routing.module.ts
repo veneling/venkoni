@@ -20,7 +20,7 @@ const routes: Routes = [
       { path: 'cv', component: CvComponent },
       { path: 'projects' , component: ProjectsComponent }
     ]},
-  { path: 'cvproject', loadChildren: () => MainModule },
+  { path: 'cvbuilder', loadChildren: () => MainModule },
   { path: '**', redirectTo: '' }
 ];
 

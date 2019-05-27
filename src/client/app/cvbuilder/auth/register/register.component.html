@@ -20,7 +20,7 @@
 
       <button mat-stroked-button (click)="register()" [disabled]="registrationForm.errors?.passwordsDoNotMatch || !registrationForm.valid">Register</button>
     </form>
-    <p class="mat-body">Already have an account? Click <a routerLink="/cvproject/login">here</a> to login.</p>
+    <p class="mat-body">Already have an account? Click <a routerLink="/cvbuilder/login">here</a> to login.</p>
     <p>{{registrationForm.errors?.passwordsMatchValidator}}</p>
     <p class="mat-body"><a routerLink="/">Back to home </a></p>
   </div>
