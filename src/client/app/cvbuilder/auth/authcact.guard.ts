@@ -17,7 +17,7 @@ export class AuthcactGuard implements CanActivate {
       return true;
     }
 
-    this.router.navigate(['login']);
+    this.router.navigate(['cvbuilder/login']);
     return false;
   }
 }

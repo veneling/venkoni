@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LandingPageComponent } from './landing-page/landing-page.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthService } from './auth/auth.service';
 import { AuthcactGuard } from './auth/authcact.guard';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { MaterialModule } from '../loaders/material.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
 
 const routes: Routes = [
-  { path: '', component: LandingPageComponent },
+  { path: '', component: DashboardComponent, canActivate: [AuthcactGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: 'cvbuilder' }
@@ -18,16 +18,14 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    LandingPageComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DashboardComponent
   ],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
     MaterialModule,
-    FormsModule,
-    ReactiveFormsModule,
   ],
   exports: [
     CommonModule,
