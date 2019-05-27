@@ -28,4 +28,8 @@ router.get('/login', function(req, res) {
   res.sendFile(path.join(config.rootPath, '/index.html'));
 })
 
+router.get('/cvbuilder', function(req, res) {
+  res.sendFile(path.join(config.rootPath, '/index.html'));
+})
+
 module.exports = router

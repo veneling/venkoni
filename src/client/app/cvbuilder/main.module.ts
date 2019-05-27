@@ -11,6 +11,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthcactGuard] },
+  { path: 'cvbuilder', component: DashboardComponent, canActivate: [AuthcactGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: 'cvbuilder' }

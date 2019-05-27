@@ -1,0 +1,11 @@
+.fill-space {
+  /* This fills the remaining space, by using flexbox. 
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+.margin-10 {
+  margin: 0px 10px 0px 10px;
+}
+.cursor-hand {
+  cursor: pointer;
+}

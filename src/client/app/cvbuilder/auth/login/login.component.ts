@@ -31,7 +31,7 @@ export class LoginComponent {
     this.auth.login(this.email, this.password)
       .pipe(first())
       .subscribe(
-        result => this.router.navigate(['']),
+        result => this.router.navigate(['cvbuilder']),
         err => this.error = 'Could not authenticate'
       );
   }
