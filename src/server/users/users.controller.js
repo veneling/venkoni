@@ -71,13 +71,12 @@ async function register(req, res, next) {
         const user = new User({
             email: email,
             hashedPassword: hashedPassword,
-            passwordSalt: passwordSalt,
             roles: ['user']
         });
 
         const createUser = await User.create(user)
         if (createUser) {
-            let token = jwt.sign({email: email}, JWT_SECRET, { expiresIn: '2h' })
+            const token = jwt.sign({email: email}, JWT_SECRET, { expiresIn: '2h' })
             res.status(200).json({
                 email: email,
                 token: token
@@ -91,10 +90,31 @@ async function register(req, res, next) {
     }
 }
 
-function login(req, res, next) {
-    userService.login({email: req.body.email, password: req.body.password})
+async function login(req, res, next) {
+    /* userService.login({email: req.body.email, password: req.body.password})
         .then(user => user ? res.json(user) : res.status(400).json({ message: 'Email or password is incorrect' }))
-        .catch(err => next(err));
+        .catch(err => next(err)); */
+        const email = req.body.email
+        const userPassword = req.body.password
+        const user = await User.findOne({email: email})
+        if (user) {
+            const hashedPassword = user.hashedPassword
+            if(bcrypt.compareSync(userPassword, hashedPassword)) {
+                const token = jwt.sign({email: email}, JWT_SECRET, { expiresIn: '2h' })
+                res.status(200).json({
+                    email: email,
+                    token: token
+                })
+            } else {
+                res.status(400).json({
+                    error: 'Wrong username or password'
+                })       
+            }
+        } else {
+            res.status(400).json({
+                error: 'Wrong username or password'
+            })
+        }
 }
 
 function getAll(req, res, next) {
