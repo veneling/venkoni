@@ -12,14 +12,22 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  register(user: User) {
-    return this.http.post('/users/register', user);
+  register(user: User):Observable<boolean> {
+    return this.http.post<{email: string, token: string}>('/users/register', user)
+    .pipe(
+      map(result=> {
+        localStorage.setItem('user_email', result.email);
+        localStorage.setItem('access_token', result.token);
+        return true;
+      })
+    );
   }
 
   login(email: string, password: string): Observable<boolean> {
-    return this.http.post<{token: string}>('/users/login', { email: email, password: password })
+    return this.http.post<{email: string, token: string}>('/users/login', { email: email, password: password })
     .pipe(
       map(result => {
+        localStorage.setItem('user_email', result.email);
         localStorage.setItem('access_token', result.token);
         return true;
       })

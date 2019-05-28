@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { passwordsMatchValidator } from './passwordsValidator.directive';
 import { AuthService } from '../auth.service';
 import { first } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,8 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() { }
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
+              private snackBar: MatSnackBar) { }
 
   get email() {
     return this.registrationForm.get('email');
@@ -38,18 +40,14 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    console.log(this.registrationForm.value);
     this.authService.register(this.registrationForm.value)
     .pipe(first())
     .subscribe(
-      data => {
-        //save the jwt token, log the user and redirect to the CV dashboard
-        console.log('user created as ' + JSON.stringify(data));
-        this.router.navigate(['cvbuilder/dashboard'])
+      () => {
+        this.router.navigate(['cvbuilder'])
       },
       error => {
-        // display the error message and reload the register page
-        console.log('error' + JSON.stringify(error));
+        this.snackBar.open(error.error.error,'', { duration: 5000 });
       });
       
   }

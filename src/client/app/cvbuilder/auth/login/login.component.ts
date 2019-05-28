@@ -33,11 +33,9 @@ export class LoginComponent {
     this.auth.login(this.email, this.password)
       .pipe(first())
       .subscribe(
-        result => this.router.navigate(['cvbuilder']),
-        err => {
-          this.error = 'Could not authenticate';
-          console.log(err);
-          this.snackBar.open('Incorrect email or password','', { duration: 5000 });
+        () => this.router.navigate(['cvbuilder']),
+        error => {
+          this.snackBar.open(error.error.error,'', { duration: 5000 });
         }
       );
   }
