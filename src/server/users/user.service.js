@@ -12,6 +12,7 @@ module.exports = {
 };
 
 async function login({ email, password }) {
+    // console.log('email: ' + email + ' password: ' + password)
     const user = await User.findOne({ email });
     if (user && bcrypt.compareSync(password, user.hash)) {
         const { hash, ...userWithoutHash } = user.toObject();
@@ -32,17 +33,26 @@ async function getById(id) {
 }
 
 async function create(userParam) {
+
+    
     // validate
-    if (await User.findOne({ email: userParam.email })) {
-        throw 'Email "' + userParam.email + '" is already taken';
+    if (!userParam.password || userParam.password.length === 0) {
+         'Invalid password';
     }
 
+    try {
+        if (await User.findOne({ email: userParam.email })) {
+            throw 'Email "' + userParam.email + '" is already taken';
+        }
+
+        
+    } catch (error) {
+        
+    }
     const user = new User(userParam);
 
-    // hash password
-    if (userParam.password) {
-        user.hash = bcrypt.hashSync(userParam.password, 10);
-    }
+    const passwordSalt = bcrypt.genSaltSync();
+    user.hashedPassword = bcrypt.hashSync(userParam.password, passwordSalt);
 
     // save user
     await user.save();

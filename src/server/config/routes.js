@@ -7,9 +7,9 @@ const path = require('path')
 
 module.exports = (config, app) => {
 
-  mainRouter.use('/users', usersController)
+  app.use('/users', usersController)
 
-  app.all('*', function(req, res) {
+  app.get('*', function(req, res) {
     res.sendFile(path.join(config.rootPath, '/index.html'));
   })
 }

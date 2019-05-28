@@ -17,7 +17,7 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<boolean> {
-    return this.http.post<{token: string}>('/users/login', {email: email, password: password})
+    return this.http.post<{token: string}>('/users/login', { email: email, password: password })
     .pipe(
       map(result => {
         localStorage.setItem('access_token', result.token);

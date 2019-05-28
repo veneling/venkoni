@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent {
   });
   public error: string;
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) { }
+  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router,
+              private snackBar: MatSnackBar) { }
 
   get password() {
     return this.loginForm.get('password').value;
@@ -32,7 +34,11 @@ export class LoginComponent {
       .pipe(first())
       .subscribe(
         result => this.router.navigate(['cvbuilder']),
-        err => this.error = 'Could not authenticate'
+        err => {
+          this.error = 'Could not authenticate';
+          console.log(err);
+          this.snackBar.open('Incorrect email or password','', { duration: 5000 });
+        }
       );
   }
 
