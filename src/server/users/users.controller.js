@@ -13,7 +13,6 @@ const JWT_SECRET = process.env.JWT_SECRET
 const jwtSecret = expressJwt({secret: JWT_SECRET})
 
 // routes
-router.post('/test', test)
 router.post('/login', login)
 router.post('/register', register)
 router.get('/', jwtSecret, getAll)
@@ -23,10 +22,6 @@ router.put('/:id', jwtSecret, update)
 router.delete('/:id', jwtSecret, _delete)
 
 module.exports = router;
-
-function test(req, res, next) {
-    res.status(202)
-}
 
 async function register(req, res, next) {
     // userService.create(req.body).then(() => res.json({})).catch(err => next(err));
