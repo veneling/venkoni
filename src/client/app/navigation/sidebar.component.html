@@ -1,12 +1,15 @@
-<mat-toolbar class="example-header">
-  <span>Welcome</span>
+<mat-toolbar class="header">
+  <span class="text-center mat-h1">Venelin Grozev
+    <br>
+    <span class="text-center mat-h4">Supply chain and production planning professional, Programming hobbyist</span>
+  </span>
 </mat-toolbar>
-<mat-sidenav-container class="example-container">
-  <mat-sidenav disableClose opened mode="side" [fixedInViewport]="false" class="example-sidenav">
+<mat-sidenav-container class="container">
+  <mat-sidenav disableClose opened mode="side" [fixedInViewport]="false" class="sidenav">
     <mat-list role="list">
-        <mat-list-item><a [routerLink]="['/about']">About me</a></mat-list-item>
-        <mat-list-item><a [routerLink]="['/cv']">Curriculum vitae</a></mat-list-item>
-        <mat-list-item><a [routerLink]="['/projects']">Projects</a></mat-list-item>
+        <mat-list-item><a class="mat-h3 menu-link" [routerLink]="['/about']">About</a></mat-list-item>
+        <mat-list-item><a class="mat-h3 menu-link" [routerLink]="['/resume']">Resume</a></mat-list-item>
+        <mat-list-item><a class="mat-h3 menu-link" [routerLink]="['/projects']">Projects</a></mat-list-item>
     </mat-list>
   </mat-sidenav>
 

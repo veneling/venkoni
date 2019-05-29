@@ -1,4 +1,4 @@
-.example-header {
+.header {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -6,7 +6,12 @@
   right: 0;
 }
 
-.example-container {
+.text-center {
+  text-align: center;
+  margin: auto;
+}
+
+.container {
   position: absolute;
   top: 64px;
   bottom: 0rem;
@@ -20,8 +25,13 @@
   }
 }
 
-.example-sidenav {
+.sidenav {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 1.2rem 0 1.2rem
+}
+
+.menu-link {
+  text-decoration: none;
 }
