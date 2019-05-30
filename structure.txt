@@ -8,12 +8,14 @@ home
               |--login (open endpoint) 
                   |--as user              
                     |--dashboard
+                          |--profile (change names and password)
                           |--create cv
                           |--edit cv
                           |--delete cv
                           |--export cv
                   |--as admin
                     |--dashboard
+                          |--profile (change names and password)        
                           |--create template
                           |--create cv
                           |--edit cv
