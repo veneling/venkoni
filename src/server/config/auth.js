@@ -2,7 +2,11 @@ let jwt = require('jsonwebtoken')
 const JWT_SECRET = process.env.JWT_SECRET
 
 let validateToken = (req, res, next) => {
-  let token = req.headers['Authorization']
+  let token = req.headers['authorization']
+  if (token.startsWith('Bearer ')) {
+    // Strip down 'Bearer ' from the string
+    token = token.slice(7, token.length);
+  }
   if(token) {
     try {
       req.decodedToken = jwt.verify(token, JWT_SECRET)

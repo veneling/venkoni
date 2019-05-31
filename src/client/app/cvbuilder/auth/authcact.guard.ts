@@ -13,7 +13,7 @@ export class AuthcactGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-    if (localStorage.getItem('access_token')) {
+    if (sessionStorage.getItem('access_token')) {
       return true;
     }
 

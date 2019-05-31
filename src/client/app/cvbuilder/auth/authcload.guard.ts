@@ -10,7 +10,7 @@ export class AuthcloadGuard implements CanLoad {
   constructor(private router: Router) { }
 
   canLoad(route: Route): boolean {
-    if (localStorage.getItem('access_token')) {
+    if (sessionStorage.getItem('access_token')) {
       return true;
     }
 

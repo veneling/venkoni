@@ -1,4 +1,4 @@
-﻿const expressJwt = require('express-jwt')
+﻿// const expressJwt = require('express-jwt')
 const jwt = require('jsonwebtoken')
 const express = require('express')
 const router = express.Router()
@@ -9,13 +9,14 @@ const path = require('path')
 let User = require('./user.model')
 const bcrypt = require('bcryptjs');
 const JWT_SECRET = process.env.JWT_SECRET
+const auth = require('../config/auth')
 
-const jwtSecret = expressJwt({secret: JWT_SECRET})
+// const jwtSecret = expressJwt({secret: JWT_SECRET})
 
 // routes
 router.post('/login', login)
 router.post('/register', register)
-router.get('/profile', jwtSecret, profile)
+router.get('/profile', auth.validateToken, profile)
 
 
 module.exports = router;
@@ -112,4 +113,13 @@ async function login(req, res, next) {
 async function profile(req, res, next) {
     const email = req.body.email
     const user = await User.findOne({email: email})
+    if (user) {
+        res.status(200).json({
+            user: user
+        })
+    } else {
+        res.status(404).json({
+            message: 'User with email ' + req.body.email + ' cannot be found'
+        })
+    }
 }

@@ -16,8 +16,8 @@ export class AuthService {
     return this.http.post<{email: string, token: string}>('/users/register', user)
     .pipe(
       map(result=> {
-        localStorage.setItem('user_email', result.email);
-        localStorage.setItem('access_token', result.token);
+        sessionStorage.setItem('user_email', result.email);
+        sessionStorage.setItem('access_token', result.token);
         return true;
       })
     );
@@ -27,18 +27,18 @@ export class AuthService {
     return this.http.post<{email: string, token: string}>('/users/login', { email: email, password: password })
     .pipe(
       map(result => {
-        localStorage.setItem('user_email', result.email);
-        localStorage.setItem('access_token', result.token);
+        sessionStorage.setItem('user_email', result.email);
+        sessionStorage.setItem('access_token', result.token);
         return true;
       })
     )
   }
 
   logout() {
-    localStorage.removeItem('access_token');
+    sessionStorage.removeItem('access_token');
   }
 
   public get loggedIn(): boolean {
-    return (localStorage.getItem('access_token') != null);
+    return (sessionStorage.getItem('access_token') != null);
   }
 }
