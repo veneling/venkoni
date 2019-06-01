@@ -16,7 +16,7 @@ const auth = require('../config/auth')
 // routes
 router.post('/login', login)
 router.post('/register', register)
-router.get('/profile', auth.validateToken, profile)
+router.get('/profile/:user_email', auth.validateToken, profile)
 
 
 module.exports = router;
@@ -31,7 +31,7 @@ async function register(req, res, next) {
         res
         .status(400)
         .json({
-            error: 'The email or password cannot be blank'
+            message: 'The email or password cannot be blank'
         })
         .end()
         return next()
@@ -41,7 +41,7 @@ async function register(req, res, next) {
         res
         .status(400)
         .json({
-            error: 'Passwords do not match'
+            message: 'Passwords do not match'
         })
         .end()
         return next()
@@ -51,7 +51,7 @@ async function register(req, res, next) {
         res
         .status(400)
         .json({
-            error: 'There is already registered user with this email. Please use another one.'
+            message: 'There is already registered user with this email. Please use another one.'
         })
         .end()
         return next()
@@ -78,7 +78,7 @@ async function register(req, res, next) {
 
     } catch(error) {
         res.status(500).json({
-            error: 'Internal error, user could not be created. Try again later.'
+            message: 'Internal error, user could not be created. Try again later.'
         })
     }
 }
@@ -100,18 +100,18 @@ async function login(req, res, next) {
                 })
             } else {
                 res.status(400).json({
-                    error: 'Wrong username or password'
+                    message: 'Wrong username or password'
                 })       
             }
         } else {
             res.status(400).json({
-                error: 'Wrong username or password'
+                message: 'Wrong username or password'
             })
         }
 }
 
 async function profile(req, res, next) {
-    const email = req.body.email
+    const email = req.params.user_email
     const user = await User.findOne({email: email})
     if (user) {
         res.status(200).json({
@@ -119,7 +119,7 @@ async function profile(req, res, next) {
         })
     } else {
         res.status(404).json({
-            message: 'User with email ' + req.body.email + ' cannot be found'
+            message: 'User with email ' + req.body.user_email + ' cannot be found'
         })
     }
 }

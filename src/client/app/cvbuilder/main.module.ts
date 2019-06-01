@@ -7,10 +7,14 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { MaterialModule } from '../loaders/material.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent, canActivate: [AuthcactGuard] },
+  { path: '', component: DashboardComponent, canActivate: [AuthcactGuard], 
+    children: [
+      { path: 'profile', component: ProfileComponent }
+    ]},
   { path: 'cvbuilder', component: DashboardComponent, canActivate: [AuthcactGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
@@ -21,7 +25,8 @@ const routes: Routes = [
   declarations: [
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProfileComponent
   ],
   imports: [
     RouterModule.forChild(routes),

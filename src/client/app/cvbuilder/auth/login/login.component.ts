@@ -35,7 +35,7 @@ export class LoginComponent {
       .subscribe(
         () => this.router.navigate(['cvbuilder']),
         error => {
-          this.snackBar.open(error.error.error,'', { duration: 5000 });
+          this.snackBar.open(error.error.message,'', { duration: 5000 });
         }
       );
   }
