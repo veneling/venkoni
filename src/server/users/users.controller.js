@@ -1,5 +1,4 @@
-﻿// const expressJwt = require('express-jwt')
-const jwt = require('jsonwebtoken')
+﻿const jwt = require('jsonwebtoken')
 const express = require('express')
 const router = express.Router()
 const env = process.env.NODE_ENV || 'development'
