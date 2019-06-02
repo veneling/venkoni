@@ -43,7 +43,17 @@ user resume
                         subtitle: String
                   },
                   picture: picture object,
-                  employmentHistory: [ {} ],
+                  employmentHistory: [ 
+                        {
+                              jobTitle: String,
+                              company: String,
+                              location: String,
+                              workedFrom: Date,
+                              workedTo: Date,
+                              headlineInfo: String,
+                              detailedInfo: String
+                        }
+                  ],
                   languages: [
                         { 
                               language: String, //predefined from languages document
