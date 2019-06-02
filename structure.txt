@@ -21,3 +21,35 @@ home
                           |--edit cv
                           |--delete cv
                           |--export cv
+
+user resume
+      |--experience
+      |--personal data - title, subtitle
+      |--headline info
+      |--languages
+      |--links
+      |--picture
+
+{ 
+      userId: [
+            resumeName: {
+                  personalData: {
+                        address: String,
+                        email: String,
+                        mobile: String
+                  },
+                  headlineInfo: {
+                        title: String,
+                        subtitle: String
+                  },
+                  picture: picture object,
+                  employmentHistory: [ {} ],
+                  languages: [
+                        { 
+                              language: String, //predefined from languages document
+                              level: String //predefined from language levels document
+                        }
+                  ]
+            }
+      ]
+}

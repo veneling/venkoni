@@ -10,6 +10,9 @@ export class DashboardComponent implements OnInit {
 
   constructor(private auth: AuthService) { }
 
+  firstName = sessionStorage.getItem('firstName');
+  lastName = sessionStorage.getItem('lastName');
+
   ngOnInit() {
   }
 

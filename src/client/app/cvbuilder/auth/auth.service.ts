@@ -21,17 +21,10 @@ export class AuthService {
       }),
       withCredentials: true
     };
-    return httpOptions;
-  }
-  
-
-  addJWTtoHttpHeaders() {
-    let headers = this.setHttpOptions().headers
     let token = sessionStorage.getItem('access_token');
     if(token) {
-      headers = headers.append('Authorization', 'Bearer ' + token );
+      httpOptions.headers = httpOptions.headers.append('Authorization', 'Bearer ' + token );
     }
-    let httpOptions = { headers: headers, withCredentials: true }
     return httpOptions;
   }
   
@@ -47,11 +40,18 @@ export class AuthService {
   }
 
   register(user: User): Observable<boolean> {
-    return this.http.post<{email: string, token: string}>('/users/register', user, this.setHttpOptions())
+    return this.http.post<{
+      email: string, 
+      token: string, 
+      firstName: string,
+      lastName: string
+    }>('/users/register', user, this.setHttpOptions())
     .pipe(
       map(result=> {
         sessionStorage.setItem('user_email', result.email);
         sessionStorage.setItem('access_token', result.token);
+        sessionStorage.setItem('firstName', result.firstName);
+        sessionStorage.setItem('lastName', result.lastName);
         return true;
       })
     );
@@ -59,11 +59,18 @@ export class AuthService {
 
   login(email: string, password: string): Observable<boolean> {
 
-    return this.http.post<{email: string, token: string}>('/users/login', { email: email, password: password }, this.setHttpOptions())
+    return this.http.post<{
+      email: string, 
+      token: string, 
+      firstName: string,
+      lastName: string
+    }>('/users/login', { email: email, password: password }, this.setHttpOptions())
     .pipe(
       map(result => {
         sessionStorage.setItem('user_email', result.email);
         sessionStorage.setItem('access_token', result.token);
+        sessionStorage.setItem('firstName', result.firstName);
+        sessionStorage.setItem('lastName', result.lastName);
         return true;
       })
     )
@@ -79,7 +86,7 @@ export class AuthService {
   }
 
   profile(): Observable<any> {
-    return this.http.get<any>('/users/profile/' + sessionStorage.getItem('user_email'), this.addJWTtoHttpHeaders())
+    return this.http.get<any>('/users/profile/' + sessionStorage.getItem('user_email'), this.setHttpOptions())
     .pipe(
       // catchError((err) => Observable.throw(err)),
       map(

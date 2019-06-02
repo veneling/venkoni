@@ -14,7 +14,9 @@ import { MatSnackBar } from '@angular/material';
 export class RegisterComponent implements OnInit {
 
   registrationForm = this.fb.group({
-    email:       [ '', Validators.required ],
+    firstName:      [ '', Validators.required ],
+    lastName:       [ '', Validators.required ],
+    email:          [ '', Validators.required ],
     password:       [ '', Validators.required ],
     repeatPassword: [ '', Validators.required ]
   }, 
@@ -26,6 +28,14 @@ export class RegisterComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
               private snackBar: MatSnackBar) { }
+
+  get firstName() {
+    return this.registrationForm.get('firstName');
+  }
+
+  get lastName() {
+    return this.registrationForm.get('lastName');
+  }
 
   get email() {
     return this.registrationForm.get('email');

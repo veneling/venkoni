@@ -21,7 +21,8 @@ router.get('/profile/:user_email', auth.validateToken, profile)
 module.exports = router;
 
 async function register(req, res, next) {
-    // userService.create(req.body).then(() => res.json({})).catch(err => next(err));
+    let firstName = req.body.firstName
+    let lastName  = req.body.lastName
     let email = req.body.email
     let password = req.body.password
     let repeatPassword = req.body.repeatPassword
@@ -61,6 +62,8 @@ async function register(req, res, next) {
         const hashedPassword = bcrypt.hashSync(password, passwordSalt);
 
         const user = new User({
+            firstName: firstName,
+            lastName: lastName,
             email: email,
             hashedPassword: hashedPassword,
             roles: ['user']
@@ -71,7 +74,9 @@ async function register(req, res, next) {
             const token = jwt.sign({email: email}, JWT_SECRET, { expiresIn: '2h' })
             res.status(200).json({
                 email: email,
-                token: token
+                token: token,
+                firstName: user.firstName,
+                lastName: user.lastName
             })
         }
 
@@ -95,7 +100,9 @@ async function login(req, res, next) {
                 const token = jwt.sign({email: email}, JWT_SECRET, { expiresIn: '2h' })
                 res.status(200).json({
                     email: email,
-                    token: token
+                    token: token,
+                    firstName: user.firstName,
+                    lastName: user.lastName
                 })
             } else {
                 res.status(400).json({
@@ -114,7 +121,8 @@ async function profile(req, res, next) {
     const user = await User.findOne({email: email})
     if (user) {
         res.status(200).json({
-            user: user
+            firstName: user.firstName,
+            lastName: user.lastName
         })
     } else {
         res.status(404).json({
