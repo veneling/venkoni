@@ -13,5 +13,5 @@ module.exports = (config) => {
 
     console.log('Connected to the database')
   })
-  db.on('error', err => console.log(err))
+  db.on('error', err => console.log('couldn\'t connect to the database \r\n' + err))
 }

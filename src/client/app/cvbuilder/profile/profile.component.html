@@ -1,3 +1,16 @@
-<p>
-  profile works!
-</p>
+<div class="">
+    <div class="center">
+      <p class="mat-h1">Edit your names</p>
+      <form [formGroup]="editUserNamesForm" novalidate>
+          <mat-form-field hideRequiredMarker>
+              <input matInput formControlName="firstName" placeholder="First Name" type="text" required>{{user.firstName | async}}
+            </mat-form-field>
+            <br>
+            <mat-form-field hideRequiredMarker>
+              <input matInput formControlName="lastName" placeholder="Last Name" type="text" required>{{user.lastName | async}}
+            </mat-form-field>
+            <br>
+        <button mat-stroked-button (click)="submitEditUserNamesForm()" [disabled]="!editUserNamesForm.valid">Save</button>
+      </form>
+    </div>
+  </div>

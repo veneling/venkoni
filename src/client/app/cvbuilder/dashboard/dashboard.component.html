@@ -1,12 +1,15 @@
 <mat-toolbar>
   <mat-toolbar-row>
     Hello {{firstName}} {{lastName}}
-    <a routerLink="profile" class="margin-10">Profile</a>
+    <!--
     <a routerLink="cpim1" class="margin-10">Create CV</a>
     <a routerLink="cpim2" class="margin-10">Edit CV</a>
     <a routerLink="cpim2" class="margin-10">Delete CV</a>
     <a routerLink="cpim2" class="margin-10">Export as PDF</a>
+    -->
     <span class="fill-space"></span>
+    <a routerLink="account" class="margin-10">Account settings</a>
+    <span>&nbsp;|&nbsp;</span>
     <a routerLink="logout" (click)="logout()">Logout</a>
   </mat-toolbar-row>
 </mat-toolbar>

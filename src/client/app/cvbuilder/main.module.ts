@@ -13,7 +13,7 @@ import { ProfileComponent } from './profile/profile.component';
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthcactGuard], 
     children: [
-      { path: 'profile', component: ProfileComponent }
+      { path: 'account', component: ProfileComponent, canActivate: [AuthcactGuard] }
     ]},
   { path: 'cvbuilder', component: DashboardComponent, canActivate: [AuthcactGuard] },
   { path: 'login', component: LoginComponent },
