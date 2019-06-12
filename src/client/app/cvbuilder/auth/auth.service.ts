@@ -29,7 +29,7 @@ export class AuthService {
   }
   
     isLoggedIn() {
-    const token: string = this.jwtHelperService.tokenGetter();
+    const token: string = this.tokenGetter();
 
     if (!token) {
       return false;
@@ -83,6 +83,10 @@ export class AuthService {
 
   public get loggedIn(): boolean {
     return (sessionStorage.getItem('access_token') != null);
+  }
+
+  tokenGetter() {
+    return sessionStorage.getItem('access_token');
   }
 
   profile(): Observable<any> {
